@@ -1,0 +1,32 @@
+@import "colores";
+$haches:(
+    familia:'Poppins', 
+    centrar: center
+);
+@mixin letras { 
+    text-align: map-get($haches, centrar);
+    font-family: map-get($haches, familia) ;
+}
+h1 {
+    @include letras;
+}
+h2 {
+    @include letras;
+    font-size: 3vw;
+}
+p {
+    font-size: 2vw;
+    margin: 2vw;
+    justify-content: center;
+}
+a{
+    text-decoration: none;
+    color: rgb(250, 250, 250);
+    &:hover{
+        color: rgb(250, 250, 250);
+    }
+}
+h3{
+    @include letras;
+    font-size: 4vw;
+ }
