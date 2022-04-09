@@ -1,15 +1,15 @@
-// const listaNombres = ["Gustavo" , "Marco" , "Yael"]
-// const listaApellidos = ["Flores", "Serlik", "Roufe"]
-// let nombre;
-// do {
-//     nombre = prompt("Por favor ingresa tu nombre");
-//    verificacion =(listaNombres.includes(nombre));
-// } while (verificacion == false);
-// let apellido;
-// do {
-//     apellido = prompt("Por favor ingresa tu apellido");
-//     verificacion =(listaApellidos.includes(apellido));
-// } while (verificacion == false);
+const listaNombres = ["Gustavo" , "Marco" , "Yael"]
+const listaApellidos = ["Flores", "Serlik", "Roufe"]
+let nombre;
+do {
+    nombre = prompt("Por favor ingresa tu nombre");
+   verificacion =(listaNombres.includes(nombre));
+} while (verificacion == false);
+let apellido;
+do {
+    apellido = prompt("Por favor ingresa tu apellido");
+    verificacion =(listaApellidos.includes(apellido));
+} while (verificacion == false);
 
 
 let precio;
