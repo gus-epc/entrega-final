@@ -1,15 +1,15 @@
 document.getElementById("marcas").style.display = "none";
-let precio;
-const producto = {
-    hannabach: 1000,
-    knobloch: 2000,
-    savarez: 3000,
-    daddario: 4000,
-    augustine: 5000,
-    sonatina: 6000
-}
+// let precio;
+// const producto = {
+//     hannabach: 1000,
+//     knobloch: 2000,
+//     savarez: 3000,
+//     daddario: 4000,
+//     augustine: 5000,
+//     sonatina: 6000
+// }
 
-const carrito = [];
+// const carrito = [];
 
 let enviar;
     enviar = document.querySelector("#enviar");
