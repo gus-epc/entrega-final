@@ -1,4 +1,4 @@
-document.getElementById("marcas").style.display = "none";
+
 // let precio;
 // const producto = {
 //     hannabach: 1000,
@@ -15,23 +15,29 @@ let enviar;
     enviar = document.querySelector("#enviar");
 
 const verificar = () => {
-    const listaNombres = ["Gustavo" , "Marco" , "Yael", ""]
-    const listaApellidos = ["Flores", "Serlik", "Roufe", ""]
-    let nombre;
-    nombre = document.querySelector("#nombre").value;
-    let apellido;
-    apellido = document.querySelector("#apellido").value;
-    if (listaNombres.includes(nombre) && listaApellidos.includes(apellido)) {
-        document.getElementById("marcas").style.display = "";
+    const listaUsuarios = ["Gustavo" , "Marco" , "Yael", ""]
+    const listaContrasenias = ["Flores", "Serlik", "Roufe", ""]
+    let usuario;
+    usuario = document.querySelector("#usuario").value;
+    let contrasenia;
+    contrasenia = document.querySelector("#contrasenia").value;
+    if (listaUsuarios.includes(usuario) && listaContrasenias.includes(contrasenia)) {
+        document.getElementById("formulario").remove();
+        let saludo = document.getElementById("saludo");
+        saludo.innerText = `Hola ${usuario}`;
+        let marcas = document.getElementById("marcas");
+
+        marcas.insertAdjacentHTML('afterend','<im data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/hannabach.png"  alt="hanabach">');
+        
+        marcas.insertAdjacentHTML('afterbegin','<div><img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/hannabach.png"  alt="hanabach"><h3 class="hannabach">HANNABACH</h3></div><div><img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/knobloch.png"  alt="knobloch"><h3 class="knobloch">KNOBLOCH</h3>    </div>   <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/savarez.png"  alt="savarez">       <h3 class="savarez">SAVAREZ</h3>    </div>    <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/d´addario.png"  alt="d´addario">        <h3 class="daddario">D´ADDARIO</h3>   </div>    <div >        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/augustine.png"  alt="augustine">       <h3 class="augustine">AUGUSTINE</h3>    </div>    <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/sonatina.png"  alt="sonatina">        <h3 class="sonatina">SONATINA</h3>    </div>');
+
 
     }
     else {
         alert("Usuario no válido")
+        alert(`Lo sentimos "${cupon}" no es un cupón válido`)
     }    
 }
 enviar.addEventListener("click", verificar);
-
-
-// document.getElementById("marcas").remove();
 
 
