@@ -1,35 +1,232 @@
+const listaUsuarios = ["Gustavo" , "Marco" , "Yael"]
+const listaContrasenias = ["Flores", "Serlik", "Roufe"]
 
-// let precio;
-// const producto = {
-//     hannabach: 1000,
-//     knobloch: 2000,
-//     savarez: 3000,
-//     daddario: 4000,
-//     augustine: 5000,
-//     sonatina: 6000
-// }
+const enSesion = []
+const usuarioSesionado = JSON.parse(localStorage.getItem("validado"));
 
-// const carrito = [];
+if (usuarioSesionado != null) {
+    document.getElementById("formulario").remove();
+    let saludo = document.getElementById("saludo");
+    saludo.innerText = `Hola ${usuarioSesionado}`;
 
-let enviar;
-    enviar = document.querySelector("#enviar");
+    
+    marcas.innerHTML = `
+        <div class="m">
+            <img class="marca" src="../assets/hannabach/1869.jpg"  alt="1869">
+            <pre>
+              <h5>HANNABACH 1869
+$1,149
+              </h5>
+            </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/exclusive.jpg"  alt="exclusive">
+          <pre>
+            <h5>HANNABACH
+EXCLUSIVE
+$827
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/goldin.jpg"  alt="goldin">
+          <pre>
+            <h5>HANNABACH GOLDIN
+$765
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/carbon.jpg"  alt="carbon">
+          <pre>
+            <h5>HANNABACH
+SP CARBÓN
+$613
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/cus-car.jpg"  alt="cus-car">
+          <pre>
+            <h5>HANNABACH
+CM CARBÓN
+$596
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/requinto.jpg"  alt="requinto">
+          <pre>
+            <h5>HANNABACH
+REQUINTO
+$499
+            </h5>
+          </pre>
+         </div>
+         <div class="m">
+          <img class="marca" src="../assets/hannabach/cus.png"  alt="cus">
+          <pre>
+            <h5>HANNABACH
+CUSTOM-MADE 
+$425  
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/815.png"  alt="815">
+          <pre>
+            <h5>HANNABACH
+SILVER SPECIAL
+$765
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/815.png"  alt="815">
+          <pre>
+            <h5>HANNABACH
+SILVER SPECIAL
+$412
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/600.png"  alt="600">
+          <pre>
+            <h5>HANNABACH 600
+$268
+            </h5>
+          </pre>
+        </div>
+        <div class="m">
+          <img class="marca" src="../assets/hannabach/500.png"  alt="500">
+          <pre>
+            <h5>HANNABACH 500
+$268
+            </h5>
+          </pre>
+        </div>`
+}
+
+
+
+
+let enviar = document.querySelector("#enviar");
+
 
 const verificar = () => {
-    const listaUsuarios = ["Gustavo" , "Marco" , "Yael", ""]
-    const listaContrasenias = ["Flores", "Serlik", "Roufe", ""]
-    let usuario;
-    usuario = document.querySelector("#usuario").value;
-    let contrasenia;
-    contrasenia = document.querySelector("#contrasenia").value;
+
+    let usuario = document.querySelector("#usuario").value;
+    let contrasenia = document.querySelector("#contrasenia").value;
+
+    
     if (listaUsuarios.includes(usuario) && listaContrasenias.includes(contrasenia)) {
         document.getElementById("formulario").remove();
+        enSesion.push(usuario)
+        localStorage.setItem('validado', JSON.stringify(enSesion))
+
         let saludo = document.getElementById("saludo");
         saludo.innerText = `Hola ${usuario}`;
         let marcas = document.getElementById("marcas");
-
-        marcas.insertAdjacentHTML('afterend','<im data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/hannabach.png"  alt="hanabach">');
         
-        marcas.insertAdjacentHTML('afterbegin','<div><img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/hannabach.png"  alt="hanabach"><h3 class="hannabach">HANNABACH</h3></div><div><img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/knobloch.png"  alt="knobloch"><h3 class="knobloch">KNOBLOCH</h3>    </div>   <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/savarez.png"  alt="savarez">       <h3 class="savarez">SAVAREZ</h3>    </div>    <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/d´addario.png"  alt="d´addario">        <h3 class="daddario">D´ADDARIO</h3>   </div>    <div >        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/augustine.png"  alt="augustine">       <h3 class="augustine">AUGUSTINE</h3>    </div>    <div>        <img data-aos="flip-down" data-aos-duration="1500" class="marca" src="../assets/marcas/sonatina.png"  alt="sonatina">        <h3 class="sonatina">SONATINA</h3>    </div>');
+        marcas.innerHTML = `
+            <div class="m">
+                <img class="marca" src="../assets/hannabach/1869.jpg"  alt="1869">
+                <pre>
+                  <h5>HANNABACH 1869
+$1,149
+                  </h5>
+                </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/exclusive.jpg"  alt="exclusive">
+              <pre>
+                <h5>HANNABACH
+EXCLUSIVE
+$827
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/goldin.jpg"  alt="goldin">
+              <pre>
+                <h5>HANNABACH GOLDIN
+$765
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/carbon.jpg"  alt="carbon">
+              <pre>
+                <h5>HANNABACH
+SP CARBÓN
+$613
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/cus-car.jpg"  alt="cus-car">
+              <pre>
+                <h5>HANNABACH
+CM CARBÓN
+$596
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/requinto.jpg"  alt="requinto">
+              <pre>
+                <h5>HANNABACH
+REQUINTO
+$499
+                </h5>
+              </pre>
+             </div>
+             <div class="m">
+              <img class="marca" src="../assets/hannabach/cus.png"  alt="cus">
+              <pre>
+                <h5>HANNABACH
+CUSTOM-MADE 
+$425  
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/815.png"  alt="815">
+              <pre>
+                <h5>HANNABACH
+SILVER SPECIAL
+$765
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/815.png"  alt="815">
+              <pre>
+                <h5>HANNABACH
+SILVER SPECIAL
+$412
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/600.png"  alt="600">
+              <pre>
+                <h5>HANNABACH 600
+$268
+                </h5>
+              </pre>
+            </div>
+            <div class="m">
+              <img class="marca" src="../assets/hannabach/500.png"  alt="500">
+              <pre>
+                <h5>HANNABACH 500
+$268
+                </h5>
+              </pre>
+            </div>`
+
+
 
 
     }
@@ -38,6 +235,8 @@ const verificar = () => {
         alert(`Lo sentimos "${cupon}" no es un cupón válido`)
     }    
 }
-enviar.addEventListener("click", verificar);
+enviar.addEventListener("click", () => {
+    verificar()
+});
 
 

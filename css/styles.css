@@ -56,13 +56,14 @@ h3 {
   text-align: center;
   font-family: "Poppins";
   font-size: 4vw; }
-
 .contenedor {
   display: grid;
   min-height: 100vh;
   min-width: 100vw;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: "header" "mainn" "footerr"; }
+  grid-template-areas: "header"
+ "mainn"
+ "footerr"; }
 
 .btn {
   background-color: #323232;
@@ -89,6 +90,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center; }
+  
 
 .marca {
   width: 30vw;
