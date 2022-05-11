@@ -82,8 +82,12 @@ const usuarioSesionado = JSON.parse(localStorage.getItem("validado"));
 if (usuarioSesionado != null) {
 saludar();
 imprimir();
+}
+setTimeout(() => {
 accionarHannabach();
-accionarOtra();}
+accionarOtra();
+}, 100);
+
 
          
               
@@ -133,7 +137,9 @@ if (enviar != null) {
 
 
 
-
+setTimeout(() => {
+  
+}, 0);
 
 function accionarHannabach() {
 
@@ -171,10 +177,6 @@ function accionarHannabach() {
 }  
      }
  }})
-
-
-
-
 }
 
 
