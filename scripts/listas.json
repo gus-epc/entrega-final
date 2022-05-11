@@ -1,0 +1,27 @@
+[
+  {
+    "nombre": "HANNABACH", 
+    "id": "hannabach",
+    "src": "../assets/marcas/hannabach.png"
+  },
+  {"nombre": "KNOBLOCH",
+    "id": "knobloch",
+    "src": "../assets/marcas/knobloch.png"
+  },
+  {"nombre": "SAVAREZ",
+   "id": "savarez",
+    "src": "../assets/marcas/savarez.png"
+  },
+  {"nombre": "D'ADDARIO",
+    "id": "daddario",
+    "src": "../assets/marcas/daddario.png"
+  },
+  {"nombre": "AUGUSTINE",
+    "id": "augustine",
+    "src": "../assets/marcas/augustine.png"
+  },
+  {"nombre": "SONATINA",
+    "id": "sonatina",
+    "src": "../assets/marcas/sonatina.png"
+  }
+]
