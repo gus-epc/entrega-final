@@ -1,13 +1,33 @@
 #carrito{
     background-color: $gris;
 }
+#productos{
+
+    h5{
+        margin-left: 3vw;
+        margin-left: 5vw;
+    }
+    img{
+        width: 10vw;
+    }
+    div{
+        margin-top: 1vw;
+        display: flex;
+        flex-basis: 20%;
+        align-items: center;
+    }
+}
 #car{
     background-color: rgb(12, 12, 12);
     border: 0ch;
 }
+
 .cerrado{
     display: none;
 }
 .abierto{
     display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
