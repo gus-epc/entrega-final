@@ -34,21 +34,29 @@ const productosHannabach = [
 
 ];
 
+  car.addEventListener("click",()=>{
+  if (carrito.classList.contains("abierto")){
+    carrito.classList.remove("abierto");
+  }
+  else{
+    carrito.classList.add("abierto");
+  }  })
+
+    
 
 
-
-      
-              
-const verificar = () => {
-  
-if (usuarioSesionado != null) {
+   if (usuarioSesionado != null) {
 saludar();
 imprimir();
 }
 setTimeout(() => {
 accionarHannabach();
 accionarOtra();
-}, 100);
+}, 100);    
+ 
+const verificar = () => {
+  
+
 
     let usuario = document.querySelector("#usuario").value;
     let contrasenia = document.querySelector("#contrasenia").value;
@@ -82,14 +90,33 @@ accionarOtra();
       })
     }   
 }
-
-let enviar = document.querySelector("#enviar");
-if (enviar != null) {
-      enviar.addEventListener("click", () => {
-    verificar()
-});
-
+function saludar(){
+  document.getElementById("formulario").remove();
+  let saludo = document.getElementById("saludo");
+  saludo.innerText = `Hola ${usuarioSesionado}!`;
 }
+function imprimir() {
+  obtenerDatos()
+
+    }  
+
+function obtenerDatos(){
+      fetch("../scripts/listas.json")
+        .then(response => response.json())
+        .then((resultado) => {
+          let nuestrasMarcas = resultado;
+          nuestrasMarcas.forEach(marca => {
+             let nodo = document.createElement("div");
+            nodo.innerHTML =
+              `<a class='m' id='${marca.id}' href=''>
+                <img class='marca' src='${marca.src}'  alt='${marca.id}'>
+                <h3>${marca.nombre}</h3>
+              </a>`;
+            document.getElementById("marcas").appendChild(nodo)
+            ;})    
+          }
+          );
+ }
 
 
 function accionarHannabach() {
@@ -172,31 +199,11 @@ function accionarOtra() {
   })
 }
 
-function saludar(){
-  document.getElementById("formulario").remove();
-  let saludo = document.getElementById("saludo");
-  saludo.innerText = `Hola ${usuarioSesionado}!`;
-}
 
-function obtenerDatos(){
-      fetch("../scripts/listas.json")
-        .then(response => response.json())
-        .then((resultado) => {
-          let nuestrasMarcas = resultado;
-          nuestrasMarcas.forEach(marca => {
-             let nodo = document.createElement("div");
-            nodo.innerHTML =
-              `<a class='m' id='${marca.id}' href=''>
-                <img class='marca' src='${marca.src}'  alt='${marca.id}'>
-                <h3>${marca.nombre}</h3>
-              </a>`;
-            document.getElementById("marcas").appendChild(nodo)
-            ;})    
-          }
-          );
-    }
 
-    function agregarElemento(titulo, costo, fotito){
+
+
+function agregarElemento(titulo, costo, fotito){
       let producto = document.createElement("div");
       let productos = document.getElementById("productos");
       let listaProductos = document.getElementsByClassName("producto-nuevo");
@@ -210,11 +217,10 @@ function obtenerDatos(){
         <button type="button" class="btn btn-danger">Eliminar</button>
       </div>   
       `    
-    
-    
+
      
-     for(let i=0; i < listaProductos.length; i++) {
-      if(listaProductos[i].getAttribute("id")== titulo) {
+for(let i=0; i < listaProductos.length; i++) {
+    if(listaProductos[i].getAttribute("id")== titulo) {
         let timerInterval
         Swal.fire({
           icon: 'error',
@@ -242,50 +248,87 @@ function obtenerDatos(){
     
     producto.innerHTML = productoNuevo;
     productos.append(producto);
-    productos.querySelector(".btn-danger").addEventListener("click", eliminarDelCarrito);
-    productos.querySelector(".cantidad").addEventListener("change", cambiarCantidad);
+    let eliminarElemento = document.getElementsByClassName("btn-danger");
+    for (let i=0; i < eliminarElemento.length; i++) {
+      let boton = eliminarElemento[i];
+    boton.addEventListener("click", eliminarDelCarrito);
+    }
+    let agregarCantidad = document.getElementsByClassName("cantidad"); 
+    for (let i=0; i < agregarCantidad.length; i++) {
+      let boton = agregarCantidad[i];
+    boton.addEventListener("click", cambiarCantidad);
+    }
     calcularTotal();
+    
     }
     
-    function eliminarDelCarrito(e) {
-      btnClickueado = e.target;
-      btnClickueado.parentElement.parentElement.remove();  
+function eliminarDelCarrito(e) {
+        let boton = e.target
+             boton.parentElement.parentElement.remove();   
       calcularTotal()
-    }
-    function cambiarCantidad(e) {
+}
+function cambiarCantidad(e) {
       let cantidad = e.target;
       if (cantidad <= 0) {
         cantidad = 1;
       }
       calcularTotal();
-    }
-    function calcularTotal() {
+}
+function calcularTotal() {
       let total = 0;
       for (const producto of listaDeProductos) {
-        
         let precioProducto = producto.querySelector(".costo-producto").innerText.replace("$", "");
         let cantidad = parseInt(producto.querySelector(".cantidad").value)
         titulo = producto.querySelector("h5").innerText
         total += precioProducto * cantidad;
-    
       }
     
       document.querySelector("#total").innerText = `Total = $${total}`;
+
+
+}
+
+      let comprar = document.getElementById("comprar")
+      comprar.addEventListener("click", mostrarTotal = () =>{
+       total = document.querySelector("#total").innerText.replace("Total = $", "")
+        if (total > 0) {
+            Swal.fire({
+            title: 'Muchas gracias por tu compra!',
+            text: `Serás redireccionado a la pasarela de pago por un total de $${total}`,
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'ok!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Tu compra ha sido realizada',
+                'Gracias por probar el simulador',
+                'success'
+              )
+            }
+          })}
+          else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Tu carrito está vacio',
+              footer: 'Agrega algunos productos '
+            })
+          }
+        }
+      )
+
+
+
+
+
+
+console.log(total);
+let enviar = document.querySelector("#enviar");
+    if (enviar != null) {
+          enviar.addEventListener("click", () => {
+        verificar()
+    });
+    
     }
 
-
-function imprimir() {
-  obtenerDatos()
-
-    }  
-
-
-car.addEventListener("click",()=>{
-if (carrito.classList.contains("abierto")){
-  carrito.classList.remove("abierto");
-}
-else{
-  carrito.classList.add("abierto");
-}
-  
-})
