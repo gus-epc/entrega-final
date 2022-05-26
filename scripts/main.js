@@ -5,7 +5,8 @@ let carrito = document.getElementById("carrito");
 const enSesion = []
 const usuarioSesionado = JSON.parse(localStorage.getItem("validado"));
 let listaDeProductos = document.getElementsByClassName("producto-nuevo");
-
+let enviar = document.querySelector("#enviar");
+let comprar = document.getElementById("comprar")
 const productosHannabach = [
   {modelo: "HANNABACH 1869",
   precio: "999",
@@ -34,139 +35,121 @@ const productosHannabach = [
 
 ];
 
-  car.addEventListener("click",()=>{
+car.addEventListener("click",()=>{
   if (carrito.classList.contains("abierto")){
     carrito.classList.remove("abierto");
   }
   else{
     carrito.classList.add("abierto");
-  }  })
+  }
+})
+   
 
-    
-
-
-   if (usuarioSesionado != null) {
-saludar();
-imprimir();
+if (usuarioSesionado != null) {
+  saludar();
+  imprimir();
 }
 setTimeout(() => {
-accionarHannabach();
-accionarOtra();
-}, 100);    
+  accionarHannabach();
+  accionarOtra();
+}, 100);
  
 const verificar = () => {
-  
+  let usuario = document.querySelector("#usuario").value;
+  let contrasenia = document.querySelector("#contrasenia").value;
 
-
-    let usuario = document.querySelector("#usuario").value;
-    let contrasenia = document.querySelector("#contrasenia").value;
-
-    
-    if (listaUsuarios.includes(usuario) && listaContrasenias.includes(contrasenia)) {
-      Swal.fire(
-        'Inicio de sesión exitoso!',
-        '',
-        'success'
-      )
-        enSesion.push(usuario)
-        localStorage.setItem('validado', JSON.stringify(enSesion))
-
-          document.getElementById("formulario").remove();
-          let saludo = document.getElementById("saludo");
-          saludo.innerText = `Hola ${usuario}!`;
-        imprimir();
-        setTimeout(() => {
-          accionarHannabach();
-          accionarOtra();
-          }, 100);
-                 
-      }   
-
-    else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Lo sentimos, el usuairo no es válido!',
-      })
-    }   
+  if (listaUsuarios.includes(usuario) && listaContrasenias.includes(contrasenia)) {
+    Swal.fire(
+      'Inicio de sesión exitoso!',
+      '',
+      'success'
+    )
+    enSesion.push(usuario)
+    localStorage.setItem('validado', JSON.stringify(enSesion))
+    document.getElementById("formulario").remove();
+    let saludo = document.getElementById("saludo");
+    saludo.innerText = `Hola ${usuario}!`;
+    imprimir();
+    setTimeout(() => {
+      accionarHannabach();
+      accionarOtra();
+    }, 100);
+  } 
+  else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Lo sentimos, el usuairo no es válido!',
+    })
+  }   
 }
+
 function saludar(){
-  document.getElementById("formulario").remove();
   let saludo = document.getElementById("saludo");
+  document.getElementById("formulario").remove();
   saludo.innerText = `Hola ${usuarioSesionado}!`;
 }
 function imprimir() {
   obtenerDatos()
-
-    }  
+}  
 
 function obtenerDatos(){
-      fetch("../scripts/listas.json")
-        .then(response => response.json())
-        .then((resultado) => {
-          let nuestrasMarcas = resultado;
-          nuestrasMarcas.forEach(marca => {
-             let nodo = document.createElement("div");
-            nodo.innerHTML =
-              `<a class='m' id='${marca.id}' href=''>
-                <img class='marca' src='${marca.src}'  alt='${marca.id}'>
-                <h3>${marca.nombre}</h3>
-              </a>`;
-            document.getElementById("marcas").appendChild(nodo)
-            ;})    
-          }
-          );
- }
-
-
-function accionarHannabach() {
-
-    let marcas = document.getElementById("marcas");
-
-   document.getElementById("hannabach").addEventListener("click", (e) => {
-      e.preventDefault();
-      marcas.innerHTML = ""
-     for (const prod of productosHannabach) {
-       marcas.innerHTML += `
-       <div>
-       <div class="card bg-black" style="width: 18rem;">
-       <img src="${prod.imgSrc}" class="card-img-top" alt="${prod.modelo}">
-       <div class="card-body">
-         <h5 class="card-title">${prod.modelo}</h5>
-         <p class="card-text">$${prod.precio}</p>
-         <button type="button" class="btn btn-secondary agregar">Agregar al carrito</button>
-       </div>
-     </div>
-     </div>`
-
-
-
-    let agregar = document.getElementsByClassName("agregar");
-    for (let i=0; i < agregar.length; i++) {
-      let boton = agregar[i];
-      boton.addEventListener("click", agregarCarrito)
-     function agregarCarrito(e) {
-      let boton = e.target;
-      let elemento = boton.parentElement;
-      let titulo = elemento.querySelector("h5").innerText;
-      let costo = elemento.querySelector("p").innerText;
-      let paElemento = elemento.parentElement;
-      let fotito = paElemento.querySelector(".card-img-top").src;
-
-      if (carrito.querySelector("h2")!= null) {
-        carrito.querySelector("h2").remove()
-      }
-      carrito.classList.add("abierto");
-
-      agregarElemento(titulo, costo, fotito)
-}  
-     }
- }})
+  fetch("../scripts/listas.json")
+    .then(response => response.json())
+    .then((resultado) => {
+      let nuestrasMarcas = resultado;
+      nuestrasMarcas.forEach(marca => {
+        let nodo = document.createElement("div");
+        nodo.innerHTML =
+        `<a class='m' id='${marca.id}' href=''>
+        <img class='marca' src='${marca.src}' alt='${marca.id}'>
+        <h3>${marca.nombre}</h3>
+        </a>`;
+        document.getElementById("marcas").appendChild(nodo);
+      })
+    });
 }
 
+function accionarHannabach() {
+  let marcas = document.getElementById("marcas");
+  let agregar = document.getElementsByClassName("agregar");  
+  document.getElementById("hannabach").addEventListener("click", (e) => {
+    e.preventDefault();
+    marcas.innerHTML = ""
+    for (const prod of productosHannabach) {
+      marcas.innerHTML += `
+      <div>
+      <div class="card bg-black" style="width: 18rem;">
+        <img src="${prod.imgSrc}" class="card-img-top" alt="${prod.modelo}">
+      <div class="card-body">
+        <h5 class="card-title">${prod.modelo}</h5>
+        <p class="card-text">$${prod.precio}</p>
+        <button type="button" class="btn btn-secondary agregar">Agregar al carrito</button>
+      </div>
+      </div>
+      </div>`;
 
-
-
+      for (let i=0; i < agregar.length; i++) {
+        let boton = agregar[i];
+        boton.addEventListener("click", agregarCarrito)
+        function agregarCarrito(e) {
+          let boton = e.target;
+          let elemento = boton.parentElement;
+          let titulo = elemento.querySelector("h5").innerText;
+          let costo = elemento.querySelector("p").innerText;
+          let paElemento = elemento.parentElement;
+          let fotito = paElemento.querySelector(".card-img-top").src;
+          
+          if (carrito.querySelector("h2")!= null) {
+            carrito.querySelector("h2").remove()
+          }
+          carrito.classList.add("abierto");
+          agregarElemento(titulo, costo, fotito)
+        }  
+      }
+    }
+  })
+}
 
 function accionarOtra() {
   let falla = "Lo sentimos, estamos trabajando en esta sección!"
@@ -175,7 +158,7 @@ function accionarOtra() {
     icon: 'error',
     title: 'Oops...',
     text: `${falla}`,
-  })
+    })
   }  
   document.getElementById("knobloch").addEventListener("click", function(e){
     e.preventDefault()
@@ -204,131 +187,114 @@ function accionarOtra() {
 
 
 function agregarElemento(titulo, costo, fotito){
-      let producto = document.createElement("div");
-      let productos = document.getElementById("productos");
-      let listaProductos = document.getElementsByClassName("producto-nuevo");
-    
-      productoNuevo =  `
+  let producto = document.createElement("div");
+  let productos = document.getElementById("productos");
+  let listaProductos = document.getElementsByClassName("producto-nuevo");
+  let eliminarElemento = document.getElementsByClassName("btn-danger");
+    productoNuevo = `
       <div id="${titulo}" class="producto-nuevo">
       <img src="${fotito}" alt="${titulo}">
-        <h5>${titulo}</h5>
-        <p class="costo-producto">${costo}</p>
-        <input type="number" class="cantidad" min="1" value="1">
-        <button type="button" class="btn btn-danger">Eliminar</button>
-      </div>   
-      `    
+      <h5>${titulo}</h5>
+      <p class="costo-producto">${costo}</p>
+      <input type="number" class="cantidad" min="1" value="1">
+      <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>`;
 
-     
-for(let i=0; i < listaProductos.length; i++) {
+  for(let i=0; i < listaProductos.length; i++) {
     if(listaProductos[i].getAttribute("id")== titulo) {
-        let timerInterval
-        Swal.fire({
-          icon: 'error',
-          title: 'Este producto ya está en el carrito!',
-          html: '',
-          timer: 1000,
-          didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-              b.textContent = Swal.getTimerLeft()
-            }, 100)
-          },
-          willClose: () => {
+      let timerInterval
+      Swal.fire({
+        icon: 'error',
+        title: 'Este producto ya está en el carrito!',
+        html: '',
+        timer: 1000,
+        didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft()
+          }, 100)
+        },
+        willClose: () => {
             clearInterval(timerInterval)
-          }
-        }).then((result) => {
-          if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer')
-          }
-        })
-        return;
-      }
-     }
-    
-    producto.innerHTML = productoNuevo;
-    productos.append(producto);
-    let eliminarElemento = document.getElementsByClassName("btn-danger");
-    for (let i=0; i < eliminarElemento.length; i++) {
-      let boton = eliminarElemento[i];
+        }
+      })
+      .then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log('I was closed by the timer')
+        }
+      })
+      return;
+    }
+  }
+ 
+  producto.innerHTML = productoNuevo;
+  productos.append(producto);
+
+  for (let i=0; i < eliminarElemento.length; i++) {
+    let boton = eliminarElemento[i];
     boton.addEventListener("click", eliminarDelCarrito);
-    }
-    let agregarCantidad = document.getElementsByClassName("cantidad"); 
-    for (let i=0; i < agregarCantidad.length; i++) {
-      let boton = agregarCantidad[i];
+  }
+  let agregarCantidad = document.getElementsByClassName("cantidad"); 
+  for (let i=0; i < agregarCantidad.length; i++) {
+    let boton = agregarCantidad[i];
     boton.addEventListener("click", cambiarCantidad);
-    }
-    calcularTotal();
-    
-    }
-    
+  }
+  calcularTotal();
+}
+
 function eliminarDelCarrito(e) {
-        let boton = e.target
-             boton.parentElement.parentElement.remove();   
-      calcularTotal()
+  let boton = e.target
+  boton.parentElement.parentElement.remove();
+  calcularTotal()
 }
 function cambiarCantidad(e) {
-      let cantidad = e.target;
-      if (cantidad <= 0) {
-        cantidad = 1;
-      }
-      calcularTotal();
+  let cantidad = e.target;
+  if (cantidad <= 0) {
+    cantidad = 1;
+  }
+  calcularTotal();
 }
 function calcularTotal() {
-      let total = 0;
-      for (const producto of listaDeProductos) {
-        let precioProducto = producto.querySelector(".costo-producto").innerText.replace("$", "");
-        let cantidad = parseInt(producto.querySelector(".cantidad").value)
-        titulo = producto.querySelector("h5").innerText
-        total += precioProducto * cantidad;
-      }
-    
-      document.querySelector("#total").innerText = `Total = $${total}`;
-
-
+  let total = 0;
+  for (const producto of listaDeProductos) {
+    let precioProducto = producto.querySelector(".costo-producto").innerText.replace("$", "");
+    let cantidad = parseInt(producto.querySelector(".cantidad").value)
+    titulo = producto.querySelector("h5").innerText
+    total += precioProducto * cantidad;
+  }
+  document.querySelector("#total").innerText = `Total = $${total}`;
 }
 
-      let comprar = document.getElementById("comprar")
-      comprar.addEventListener("click", mostrarTotal = () =>{
-       total = document.querySelector("#total").innerText.replace("Total = $", "")
-        if (total > 0) {
-            Swal.fire({
-            title: 'Muchas gracias por tu compra!',
-            text: `Serás redireccionado a la pasarela de pago por un total de $${total}`,
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'ok!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Tu compra ha sido realizada',
-                'Gracias por probar el simulador',
-                'success'
-              )
-            }
-          })}
-          else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Tu carrito está vacio',
-              footer: 'Agrega algunos productos '
-            })
-          }
-        }
-      )
+comprar.addEventListener("click", mostrarTotal = () =>{
+  total = document.querySelector("#total").innerText.replace("Total = $", "")
+  if (total > 0) {
+    Swal.fire({
+      title: 'Muchas gracias por tu compra!',
+      text: `Serás redireccionado a la pasarela de pago por un total de $${total}`,
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'ok!'
+    }).
+    then((result) => {
+      if (result.isConfirmed) {
+      Swal.fire(
+        'Tu compra ha sido realizada',
+        'Gracias por probar el simulador',
+        'success'
+      )}
+    })
+  }
+  else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Tu carrito está vacio',
+      footer: 'Agrega algunos productos '
+    })
+  }
+})
 
-
-
-
-
-
-console.log(total);
-let enviar = document.querySelector("#enviar");
-    if (enviar != null) {
-          enviar.addEventListener("click", () => {
-        verificar()
-    });
-    
-    }
-
+enviar.addEventListener("click", () => {
+  verificar()
+});
